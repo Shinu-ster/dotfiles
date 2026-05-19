@@ -78,30 +78,50 @@ map("n", "<leader>lp", function()
   lazydocker:toggle()
 end, { desc = "Posting" })
 
--- Toggle fold under cursor (Using UFO instead of standard 'za')
-map("n", "<leader>z", function()
-  local winid = vim.api.nvim_get_current_win()
-  if not require("ufo").toggleFoldWithCount() then
-    vim.cmd("normal! za")
+--folding
+map("n", "<leader>zc", "zc", { desc = "Fold current block" })
+map("n", "<leader>zo", "zo", { desc = "Open fold" })
+map("n", "<leader>za", "za", { desc = "Toggle fold" })
+map("n", "<leader>zM", "zM", { desc = "Fold all" })
+map("n", "<leader>zR", "zR", { desc = "Unfold all" })
+map("n", "<leader>zj", "zj", { desc = "Next fold" })
+map("n", "<leader>zk", "zk", { desc = "Prev fold" })
+-- peeking folded contents
+map("n", "<leader>zp", function()
+  local start = vim.fn.foldclosed(".")
+  local end_ = vim.fn.foldclosedend(".")
+  if start == -1 then
+    vim.notify("No fold under cursor", vim.log.levels.INFO)
+    return
   end
-end, { desc = "Toggle fold" })
 
--- Peek inside a fold without opening it!
-map("n", "<leader>fp", function()
-  local winid = vim.api.nvim_get_current_win()
-  local row = vim.api.nvim_win_get_cursor(winid)[1]
-  -- If the line is folded, this opens a floating window showing the contents
-  require("ufo").peekFoldedLinesUnderCursor()
+  local lines = vim.api.nvim_buf_get_lines(0, start - 1, end_, false)
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+  vim.bo[buf].filetype = vim.bo.filetype
+
+  local width = math.floor(vim.o.columns * 0.7)
+  local height = math.min(#lines, 20)
+
+  local win = vim.api.nvim_open_win(buf, false, {
+    relative = "cursor",
+    row = 1,
+    col = 0,
+    width = width,
+    height = height,
+    style = "minimal",
+    border = "rounded",
+  })
+
+  -- Press q or <Esc> to close
+  vim.keymap.set("n", "q", function()
+    vim.api.nvim_win_close(win, true)
+  end, { buffer = buf, nowait = true })
+
+  vim.keymap.set("n", "<Esc>", function()
+    vim.api.nvim_win_close(win, true)
+  end, { buffer = buf, nowait = true })
+
+  -- Focus the window so you can scroll inside it
+  vim.api.nvim_set_current_win(win)
 end, { desc = "Peek fold content" })
-
--- Close/Fold current block (Smart fallback)
-map("n", "<leader>fc", "zc", { desc = "Fold current block" })
-
--- Open fold under cursor
-map("n", "<leader>fo", "zo", { desc = "Open fold" })
-
--- Fold everything
-map("n", "<leader>fa", function() require("ufo").closeAllFolds() end, { desc = "Fold all" })
-
--- Unfold everything
-map("n", "<leader>ua", function() require("ufo").openAllFolds() end, { desc = "Unfold all" })
