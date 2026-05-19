@@ -1,17 +1,13 @@
 return {
   {
+    "stevearc/conform.nvim",
+    -- event = 'BufWritePre', -- uncomment for format on save
+    opts = require "configs.conform",
+  },
+  {
     "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        ts_ls = {
-          filetypes = {
-            "javascript",
-            "javascriptreact",
-            "typescript",
-            "typescriptreact",
-          },
-        },
-      },
-    },
+    config = function()
+      require "configs.lspconfig"
+    end,
   },
 }

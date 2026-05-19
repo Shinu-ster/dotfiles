@@ -21,6 +21,12 @@ o.relativenumber = true
 o.wrap = true
 o.breakindent = true
 o.linebreak = true
+vim.o.autoread = true
+
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  pattern = "*",
+  command = "checktime",
+})
 
 -- local o = vim.o
 -- o.cursorlineopt ='both' -- to enable cursorline!
