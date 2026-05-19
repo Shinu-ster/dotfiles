@@ -28,5 +28,16 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
   command = "checktime",
 })
 
+-- folding via autocmd so it runs after treesitter attaches
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+  callback = function()
+    vim.opt_local.foldmethod = "expr"
+    vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    vim.opt_local.foldenable = true
+    vim.opt_local.foldlevel = 99
+    vim.opt_local.foldlevelstart = 99
+  end,
+})
+
 -- local o = vim.o
 -- o.cursorlineopt ='both' -- to enable cursorline!
