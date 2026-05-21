@@ -1,0 +1,23 @@
+return {}
+
+-- to Configure plugin firstly read their help file with :h diffview.nvim
+-- return {
+--   'sindrets/diffview.nvim', -- Name of the plugin
+--   cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" }, -- what commands to lazy load the plugin
+--   opts = { -- use opts whenever you needed to override the change the default settings
+--     view = {
+--       merge_tool = { -- change apperance of merge_tool
+--         layout = "diff3_mixed", -- added layout of diff3_mixed
+--       },
+--     },
+--   },
+--   keys = { -- press these keys to lazy load the plugins
+--     {
+--       "<leader>gm", -- mapping new keybindings
+--       "<cmd>DiffviewOpen<cr>", -- what command to run when pressed the keybindings -- <cr> means enter command or esc
+--       desc = "Diffview - Open merge tool", -- description
+--     },
+--     { "n", "<tab>",   false }, -- disable these keypresses
+--     { "n", "<s-tab>", false },
+--   }
+-- }
