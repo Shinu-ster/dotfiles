@@ -1,6 +1,4 @@
 return {
-
-  -- syntax
   {
     "windwp/nvim-ts-autotag",
     ft = {
