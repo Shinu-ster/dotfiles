@@ -68,7 +68,34 @@ return {
   {
     'sindrets/diffview.nvim',
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+    opts = {
+      view = {
+        merge_tool = {
+          layout = "diff3_mixed",
+        },
+      },
+    },
     keys = {
+      {
+        "<leader>gm",
+        "<cmd>DiffviewOpen<cr>",
+        desc = "Git - Open merge tool",
+      },
+      {
+        "<leader>gc",
+        "<cmd>DiffviewClose<cr>",
+        desc = "Git - Close merge tool",
+      },
+      {
+        "<leader>gf",
+        "<cmd>DiffviewToggleFiles %<cr>",
+        desc = "Git - Show File History",
+      },
+      {
+        "<leader>gr",
+        "<cmd>!git rebase --continue<cr>",
+        desc = "Git - Rebase continue",
+      },
       { "n", "<tab>",   false },
       { "n", "<s-tab>", false },
     }
