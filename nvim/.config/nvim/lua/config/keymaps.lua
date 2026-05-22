@@ -1,7 +1,7 @@
 require "nvchad.mappings"
 
 local map = vim.keymap.set
-
+map("v", "<leader>p",'"_dP')
 map("i", "jk", "<ESC>")
 
 -- Switch buffers with Tab / Shift+Tab
@@ -62,7 +62,7 @@ map("n", "<leader>lg", function()
     direction = "float",
     hidden = true,
   })
-  lazygit :toggle()
+  lazygit:toggle()
 end, { desc = "LazyGit" })
 
 
