@@ -1,8 +1,6 @@
 require "nvchad.mappings"
 
 local map = vim.keymap.set
-map("n", "n", "n", { noremap = true, desc = "Next search result" })
-map("n", "N", "N", { noremap = true, desc = "Prev search result" })
 
 map("i", "jk", "<ESC>")
 
