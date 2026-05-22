@@ -59,23 +59,23 @@ end, { desc = "LazyDocker" })
 
 map("n", "<leader>lg", function()
   local Terminal = require("toggleterm.terminal").Terminal
-  local lazydocker = Terminal:new({
+  local lazygit = Terminal:new({
     cmd = "lazygit",
     direction = "float",
     hidden = true,
   })
-  lazydocker:toggle()
+  lazygit :toggle()
 end, { desc = "LazyGit" })
 
 
 map("n", "<leader>lp", function()
   local Terminal = require("toggleterm.terminal").Terminal
-  local lazydocker = Terminal:new({
+  local posting = Terminal:new({
     cmd = "posting",
     direction = "float",
     hidden = true,
   })
-  lazydocker:toggle()
+  posting:toggle()
 end, { desc = "Posting" })
 
 --folding
