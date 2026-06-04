@@ -43,6 +43,21 @@ return {
           ["vim.lsp.util.stylize_markdown"] = true,
           ["cmp.entry.get_documentation"] = true,
         },
+        signature = {
+          enabled = false,
+        },
+        hover = {
+          enabled = true,
+        }
+      },
+      routes = {
+        {
+          filter = {
+            event = "lsp",
+            kind = "progress",
+          },
+          opts = { skip = true },
+        }
       },
       presets = {
         bottom_search = false,
