@@ -123,3 +123,55 @@ map("n", "<leader>zp", function()
   -- Focus the window so you can scroll inside it
   vim.api.nvim_set_current_win(win)
 end, { desc = "Peek fold content" })
+
+
+-- Peek definition in floating window (no jump)
+map("n", "<leader>pd", function()
+  local params = vim.lsp.util.make_position_params()
+  vim.lsp.buf_request(0, "textDocument/definition", params, function(err, result, ctx)
+    if err or not result or vim.tbl_isempty(result) then
+      vim.notify("No definition found", vim.log.levels.WARN)
+      return
+    end
+
+    local location = vim.islist(result) and result[1] or result
+    local uri = location.uri or location.targetUri
+    local range = location.range or location.targetSelectionRange
+
+    local bufnr = vim.uri_to_bufnr(uri)
+    vim.fn.bufload(bufnr)
+
+    local start_line = range.start.line
+    local end_line = range["end"].line
+
+    -- grab a few lines of context around the definition
+    local lines = vim.api.nvim_buf_get_lines(bufnr, math.max(0, start_line - 3), end_line + 30, false)
+
+    local float_buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_set_lines(float_buf, 0, -1, false, lines)
+    vim.bo[float_buf].filetype = vim.bo[bufnr].filetype
+
+    local width = math.floor(vim.o.columns * 0.65)
+    local height = math.min(#lines + 2, 40)
+
+    local win = vim.api.nvim_open_win(float_buf, true, {
+      relative = "cursor",
+      row = 1,
+      col = 0,
+      width = width,
+      height = height,
+      style = "minimal",
+      border = "rounded",
+      title = " Definition ",
+      title_pos = "center",
+    })
+
+    vim.wo[win].winhl = "Normal:NormalFloat"
+
+    for _, key in ipairs({ "q", "<Esc>", "<leader>pd" }) do
+      vim.keymap.set("n", key, function()
+        vim.api.nvim_win_close(win, true)
+      end, { buffer = float_buf, nowait = true, silent = true })
+    end
+  end)
+end, { desc = "Peek definition (float)" })
