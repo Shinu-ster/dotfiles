@@ -14,3 +14,14 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="<path>:$PATH"
 eval "$(starship init bash)"
+
+alias lg='lazygit'
+alias lzd='lazydocker'
+alias gst='git status'
+alias vim='nvim'
+alias start-postgres='sudo systemctl start postgresql'
+alias status-postgres='sudo systemctl status postgresql'
+alias stop-postgres='sudo systemctl stop postgresql'
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
