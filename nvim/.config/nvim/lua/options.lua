@@ -1,6 +1,3 @@
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
 require "nvchad.options"
 
 vim.diagnostic.config({
@@ -28,6 +25,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
   command = "checktime",
 })
 
+
 -- folding via autocmd so it runs after treesitter attaches
 vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
   callback = function()
@@ -38,6 +36,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
     vim.opt_local.foldlevelstart = 99
   end,
 })
+
 
 -- local o = vim.o
 -- o.cursorlineopt ='both' -- to enable cursorline!

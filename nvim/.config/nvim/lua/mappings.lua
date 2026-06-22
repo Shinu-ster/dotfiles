@@ -1,6 +1,7 @@
 require "nvchad.mappings"
 
 local map = vim.keymap.set
+
 map("v", "<leader>p",'"_dP')
 map("i", "jk", "<ESC>")
 
@@ -68,12 +69,12 @@ end, { desc = "LazyGit" })
 
 map("n", "<leader>lp", function()
   local Terminal = require("toggleterm.terminal").Terminal
-  local posting = Terminal:new({
+  local lazydocker = Terminal:new({
     cmd = "posting",
     direction = "float",
     hidden = true,
   })
-  posting:toggle()
+  lazydocker:toggle()
 end, { desc = "Posting" })
 
 --folding
@@ -123,7 +124,6 @@ map("n", "<leader>zp", function()
   -- Focus the window so you can scroll inside it
   vim.api.nvim_set_current_win(win)
 end, { desc = "Peek fold content" })
-
 
 -- Peek definition in floating window (no jump)
 map("n", "<leader>pd", function()
