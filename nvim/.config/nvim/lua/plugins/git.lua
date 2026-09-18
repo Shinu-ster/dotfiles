@@ -96,8 +96,8 @@ return {
         "<cmd>!git rebase --continue<cr>",
         desc = "Git - Rebase continue",
       },
-      { "n", "<tab>",   false },
-      { "n", "<s-tab>", false },
+      { "<tab>",   false, mode = "n" },
+      { "<s-tab>", false, mode = "n" },
     }
   },
 
