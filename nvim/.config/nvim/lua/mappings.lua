@@ -175,3 +175,19 @@ map("n", "<leader>pd", function()
     end
   end)
 end, { desc = "Peek definition (float)" })
+
+-- Buffer close and opening
+-- <leader>b is "new buffer" by default in NvChad, so free it up to use as a prefix
+pcall(vim.keymap.del, "n", "<leader>b")
+
+-- Close all buffers except the current one
+map("n", "<leader>bo", "<cmd>%bd|e#|bd#<CR>", { desc = "Close all other buffers" })
+
+-- Close all buffers and show the nvdash screen
+map("n", "<leader>bn", function()
+  vim.cmd("silent! %bd")
+  vim.cmd("Nvdash")
+end, { desc = "Close all buffers and open dashboard" })
+
+-- Keep a way to create a new buffer
+map("n", "<leader>bb", "<cmd>enew<CR>", { desc = "New buffer" })
